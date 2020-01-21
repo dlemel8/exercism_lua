@@ -4,7 +4,6 @@ sudo: false      # Use container-based infrastructure.
 
 env:
   - LUA="lua 5.3"
-  - LUA="luajit 2.1"
 
 before_install:
   - pip install hererocks
@@ -13,8 +12,7 @@ before_install:
   - luarocks install busted
 
 install:
-  - luarocks make # Install the rock, assuming there is a rockspec
-                  # in the root of the repository.
+  - luarocks make env./busted-2.0.0-1.rockspec # Install the rock, assuming there is a rockspec in the root of the repository.
 
 script:
   - busted
