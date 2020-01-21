@@ -1,17 +1,23 @@
-language: python # Can use any language here, but if it's not 'python'
-                 # it becomes necessary to pass '--user' to pip when installing hererocks.
-sudo: false      # Use container-based infrastructure.
+language: python
+sudo: false
 
 env:
-  - LUA="lua 5.3"
+  - LUA="lua=5.3"
 
 before_install:
   - pip install hererocks
-  - hererocks env --$LUA -rlatest    # Use latest LuaRocks, install into 'env' directory.
-  - source env/bin/activate          # Add directory with all installed binaries to PATH.
+  - hererocks lua_install -r^ --$LUA
+  - export PATH=$PATH:$PWD/lua_install/bin # Add directory with all installed binaries to PATH
 
 install:
-  - luarocks make https://luarocks.org/busted-2.0.0-1.rockspec
+  - luarocks install luacheck
+  - luarocks install busted
+  - luarocks install luacov
+  - luarocks install luacov-coveralls
 
 script:
-  - busted
+  - luacheck --no-unused-args --std max+busted *.lua spec
+  - busted --verbose --coverage
+
+after_success:
+  - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install
