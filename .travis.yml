@@ -12,7 +12,8 @@ before_install:
   - luarocks install busted
 
 install:
-  - luarocks make ./env/busted-2.0.0-1.rockspec # Install the rock, assuming there is a rockspec in the root of the repository.
+  - luarocks make # Install the rock, assuming there is a rockspec
+                  # in the root of the repository.
 
 script:
   - busted
