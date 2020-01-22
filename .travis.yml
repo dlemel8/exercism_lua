@@ -15,6 +15,6 @@ install:
   - luarocks install luacov-coveralls
 
 script:
-  - cd hello-world &&  busted
-  - cd hamming &&  busted
-  - cd resistor-color-trio &&  busted
+  - pushd hello-world && busted && popd
+  - pushd hamming && busted && popd
+  - pushd resistor-color-trio && busted && popd
