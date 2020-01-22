@@ -15,7 +15,7 @@ install:
   - luarocks install luacov-coveralls
 
 script:
-  - for dir in $(find -maxdepth 1 -type d -not -path './\.*'); do pushd $dir; busted || exit; popd; done
+  - cd exercism_lua && for dir in $(find -maxdepth 1 -type d -not -path './\.*'); do pushd $dir; busted || exit; popd; done
 
 after_success:
   - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install
