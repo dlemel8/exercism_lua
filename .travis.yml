@@ -3,9 +3,6 @@ sudo: false
 
 env:
   - LUA="lua=5.3"
-  - TEST_DIR=hello-world
-  - TEST_DIR=hamming
-  - TEST_DIR=resistor-color-trio
 
 before_install:
   - pip install hererocks
@@ -18,7 +15,6 @@ install:
   - luarocks install luacov-coveralls
 
 script:
-  - cd $TEST_DIR &&  busted
-
-after_success:
-  - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install
+  - cd hello-world &&  busted
+  - cd hamming &&  busted
+  - cd resistor-color-trio &&  busted
